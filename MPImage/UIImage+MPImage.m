@@ -8,6 +8,7 @@
 
 #import "UIImage+MPImage.h"
 #import "UIImage+MPAdditions.h"
+#import <MPColorTools/MPColorTools.h>
 #import <CoreImage/CoreImage.h>
 
 @implementation UIImage (MPImage)
