@@ -22,5 +22,5 @@ Pod::Spec.new do |s|
   s.source_files   = 'MPImage/**/*.{h,m}'
   s.platform       = :ios
   s.framework      = 'CoreImage'
-  s.dependency       'MPColorTools', '~> 1.4.1'
+  s.dependency       'MPColorTools'
 end
