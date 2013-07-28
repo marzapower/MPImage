@@ -44,21 +44,22 @@
   UIGraphicsBeginImageContextWithOptions(rect.size, NO, mask.scale*2); {
     CGContextRef gc = UIGraphicsGetCurrentContext();
     CGRect dim ={CGPointMake(2, 2), mask.size};
+    
+    CGContextTranslateCTM(gc, 0, rect.size.height);
+    CGContextScaleCTM(gc, 1.0, -1.0);
+    
     CGContextClipToMask(gc, dim, mask.CGImage);
     mask = nil;
     [color setFill];
     CGContextFillRect(gc, rect);
-  
-    CGContextSetShadowWithColor(gc, CGSizeMake(1, -1), 2.5, [shadowColor colorWithAlphaComponent:0.8].CGColor);
-    [invertedMask drawAtPoint:CGPointZero];
-    invertedMask = nil;
+    
+    //    CGContextSetShadowWithColor(gc, CGSizeMake(1, -1), 2.5, [shadowColor colorWithAlphaComponent:0.8].CGColor);
+    //    [invertedMask drawAtPoint:CGPointZero];
+    //    invertedMask = nil;
     
     resultImage = UIGraphicsGetImageFromCurrentImageContext();
   }
   UIGraphicsEndImageContext();
-  
-  // Mirroring the final image
-  resultImage = [UIImage imageWithCGImage:resultImage.CGImage scale:resultImage.scale orientation:UIImageOrientationDownMirrored];
   return resultImage;
 }
 
@@ -83,13 +84,17 @@
   extended.width += 4;
   extended.height += 4;
   CGRect rect = {CGPointZero, extended};
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, mask.scale); {
-      [color setFill];
-      UIRectFill(rect);
-      CGRect dim ={CGPointMake(2, 2), mask.size};
-      CGContextClipToMask(UIGraphicsGetCurrentContext(), dim, mask.CGImage);
-      CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
-    }
+  UIGraphicsBeginImageContextWithOptions(rect.size, NO, mask.scale); {
+    [color setFill];
+    UIRectFill(rect);
+    CGRect dim = {CGPointMake(2, 2), mask.size};
+    
+    CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0, dim.size.height+4);
+    CGContextScaleCTM(UIGraphicsGetCurrentContext(), 1.0, -1.0);
+    
+    CGContextClipToMask(UIGraphicsGetCurrentContext(), dim, mask.CGImage);
+    CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
+  }
   UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   return image;
