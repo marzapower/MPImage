@@ -32,8 +32,6 @@
   // Tried to mirror down the image: no effects
   UIImage *mask;
   UIColor *shadowColor = [color colorDarkenedBy:0.2];
-  //  mask = [UIImage imageWithCGImage:self.CGImage scale:self.scale orientation:UIImageOrientationDownMirrored];
-  UIImage *invertedMask = [self invertedMaskWithMask:[self flattenGrayscaleImage] color:shadowColor];
   
   mask = self; //[self imageByReplacingColor:0x0 withColor:0xFFF];
   CGSize extended = mask.size;
@@ -52,10 +50,6 @@
     mask = nil;
     [color setFill];
     CGContextFillRect(gc, rect);
-    
-    //    CGContextSetShadowWithColor(gc, CGSizeMake(1, -1), 2.5, [shadowColor colorWithAlphaComponent:0.8].CGColor);
-    //    [invertedMask drawAtPoint:CGPointZero];
-    //    invertedMask = nil;
     
     resultImage = UIGraphicsGetImageFromCurrentImageContext();
   }

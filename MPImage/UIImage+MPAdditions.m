@@ -45,17 +45,9 @@
   NSInteger rawBitsPerComponent = 8;
   NSInteger rawBytesPerPixel = 4;
   NSInteger rawBytesPerRow = rawBytesPerPixel * rawWidth;
-//  CGRect rawRect = CGRectMake(0, 0, rawWidth, rawHeight);
   
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
   UInt8 *rawImage = (UInt8 *)malloc(rawHeight * rawWidth * rawBytesPerPixel);
-//  CGContextRef rawContext = CGBitmapContextCreate(rawImage,
-//                                                  rawWidth,
-//                                                  rawHeight,
-//                                                  rawBitsPerComponent,
-//                                                  rawBytesPerRow,
-//                                                  colorSpace,
-//                                                  kCGImageAlphaPremultipliedLast);
   
   CGContextRef context = nil;
   
@@ -67,7 +59,6 @@
                                     rawBytesPerRow,
                                     colorSpace,
                                     kCGImageAlphaPremultipliedLast);
-    //CGBitmapContextCreate(nil, width, height, CGImageGetBitsPerComponent(imageRef), CGImageGetBytesPerRow(imageRef), CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
     CGContextSetRGBFillColor(context, newRed, newGreen, newBlue, alpha);
     CGContextFillRect(context, bounds);
   }
@@ -147,56 +138,6 @@ typedef struct RGBA {
   CGImageRelease(image);
 
   return outputImage2;
-  
-  //  return image;
-  
-//  
-//  // First step, using RGBA (because I know it works and does not harm, just writes/consumes twice the amount of memory)
-//  CGImageRef imageRef = self.CGImage;
-//  NSInteger rawWidth = CGImageGetWidth(imageRef);
-//  NSInteger rawHeight = CGImageGetHeight(imageRef);
-//  NSInteger rawBitsPerComponent =  CGImageGetBitsPerComponent(imageRef);
-//  NSInteger rawBytesPerPixel = CGImageGetBytesPerRow(imageRef);
-//  NSInteger rawBytesPerRow = CGImageGetBytesPerRow(imageRef);
-//  CGRect rawRect = CGRectMake(0, 0, rawWidth, rawHeight);
-//  
-//  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//  UInt8 *rawImage = (UInt8 *)malloc(rawHeight * rawWidth * rawBytesPerPixel);
-//  CGContextRef rawContext = CGBitmapContextCreate(rawImage,
-//                                                  rawWidth,
-//                                                  rawHeight,
-//                                                  rawBitsPerComponent,
-//                                                  rawBytesPerRow,
-//                                                  colorSpace,
-//                                                  kCGImageAlphaPremultipliedLast);
-//  CGColorSpaceRelease(colorSpace);
-//  
-//  // At this point, rawContext is ready for drawing, everything drawn will be in rawImage's byte array.
-//  CGContextDrawImage(rawContext, rawRect, imageRef);
-//  
-//  // Second step, crawl the byte array and do the evil work:
-//  for (NSInteger y = 0; y < rawHeight; ++y) {
-//    for (NSInteger x = 0; x < rawWidth; ++x) {
-//      UInt8 *address = rawImage + x * rawBytesPerPixel + y * rawBytesPerRow;
-//      RGBA *pixel = (RGBA *)address;
-//      // If it is a grey input image, it does not matter what RGB channel to use - they shall all be the same
-//      pixel->red = 0;
-//      pixel->green = 0;
-//      pixel->blue = 0;
-//      
-//      if (pixel->alpha != UINT8_MAX) {
-//        pixel->alpha = 0;
-//      }
-//      // I am still not sure if this is the transformation you are searching for, but it may give you the idea.
-//    }
-//  }
-//  
-//  // Third: rawContext is ready, transformation is done. Get the image out of it
-//  CGImageRef outputImage1 = CGBitmapContextCreateImage(rawContext);
-//  UIImage *outputImage2 = [UIImage imageWithCGImage:outputImage1];
-//  CGImageRelease(outputImage1);
-//  
-//  return outputImage2;
 }
 
 @end
