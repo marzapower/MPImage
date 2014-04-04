@@ -25,10 +25,10 @@
   return [self imageByReplacingColorsWithMinColor:minColor maxColor:maxColor withColor:newColor andAlpha:1.0f];
 }
 
-- (UIImage *)imageByReplacingColorsWithMinColor:(uint)minColor maxColor:(uint)maxColor withColor:(uint)newColor andAlpha:(float)alpha {
+- (UIImage *)imageByReplacingColorsWithMinColor:(uint)minColor maxColor:(uint)maxColor withColor:(uint)newColor andAlpha:(CGFloat)alpha {
   CGImageRef imageRef = self.CGImage;
-  float width = CGImageGetWidth(imageRef);
-  float height = CGImageGetHeight(imageRef);
+  CGFloat width = CGImageGetWidth(imageRef);
+  CGFloat height = CGImageGetHeight(imageRef);
   CGRect bounds = CGRectMake(0, 0, width, height);
   uint minRed = COLOR_PART_RED(minColor);
   uint minGreen = COLOR_PART_GREEN(minColor);
@@ -36,9 +36,9 @@
   uint maxRed = COLOR_PART_RED(maxColor);
   uint maxGreen = COLOR_PART_GREEN(maxColor);
   uint maxBlue = COLOR_PART_BLUE(maxColor);
-  float newRed = COLOR_PART_RED(newColor)/255.0f;
-  float newGreen = COLOR_PART_GREEN(newColor)/255.0f;
-  float newBlue = COLOR_PART_BLUE(newColor)/255.0f;
+  CGFloat newRed = COLOR_PART_RED(newColor)/255.0f;
+  CGFloat newGreen = COLOR_PART_GREEN(newColor)/255.0f;
+  CGFloat newBlue = COLOR_PART_BLUE(newColor)/255.0f;
   
   NSInteger rawWidth = CGImageGetWidth(imageRef);
   NSInteger rawHeight = CGImageGetHeight(imageRef);
@@ -71,7 +71,7 @@
     CGContextSetRGBFillColor(context, newRed, newGreen, newBlue, alpha);
     CGContextFillRect(context, bounds);
   }
-  float maskingColors[6] = {minRed, maxRed, minGreen, maxGreen, minBlue, maxBlue};
+  const CGFloat maskingColors[6] = {minRed, maxRed, minGreen, maxGreen, minBlue, maxBlue};
   CGImageRef maskedImageRef = CGImageCreateWithMaskingColors(imageRef, maskingColors);
   if (!maskedImageRef) {
     CGContextRelease(context);
