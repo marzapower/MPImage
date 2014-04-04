@@ -31,9 +31,8 @@
 - (UIImage *)imageWithOverColor:(UIColor *)color {
   // Tried to mirror down the image: no effects
   UIImage *mask;
-  UIColor *shadowColor = [color colorDarkenedBy:0.2];
   
-  mask = self; //[self imageByReplacingColor:0x0 withColor:0xFFF];
+  mask = self;
   CGSize extended = mask.size;
   extended.width += 4;
   extended.height += 4;

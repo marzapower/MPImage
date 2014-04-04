@@ -18,9 +18,10 @@ Pod::Spec.new do |s|
   s.summary        = 'A simple collection of tools for coloring small images.'
   s.homepage       = 'https://github.com/marzapower/MPImage'
   s.authors        = {'Daniele Di Bernardo' => 'daniele.dib@gmail.com'}
-  s.source         = { :git => 'https://github.com/marzapower/MPImage.git', :tag => '1.0' }
+  s.source         = { :git => 'https://github.com/marzapower/MPImage.git', :tag => '1.1' }
   s.source_files   = 'MPImage/**/*.{h,m}'
   s.platform       = :ios
   s.framework      = 'CoreImage'
-  s.dependency       'MPColorTools'
+  s.requires_arc   = true
+  s.dependency       'MPColorTools', '~> 1.5'
 end
